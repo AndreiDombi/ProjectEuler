@@ -247,8 +247,29 @@ public class Main {
         return maxValue;
     }
 
+    static int countDivisors(BigInteger n) {
+        int cnt = 0;
+        for (BigInteger i = BigInteger.ONE; i.compareTo(n.sqrt()) <= 0; i = i.add(BigInteger.ONE)) {
+            if (n.mod(i).compareTo(BigInteger.ZERO) == 0) {
+                if (n.divide(i).compareTo(i) == 0) {
+                    cnt++;
+                } else {
+                    cnt = cnt + 2;
+                }
+            }
+        }
+        return cnt;
+    }
 
-
+    public static BigInteger problem012() {
+        BigInteger sum = BigInteger.ZERO;
+        for (BigInteger i = BigInteger.ONE; true; i = i.add(BigInteger.ONE)) {
+            sum = sum.add(i);
+            if (countDivisors(sum) > 500) {
+                return sum;
+            }
+        }
+    }
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
@@ -264,8 +285,9 @@ public class Main {
          * System.out.println(problem008()); //16 milliseconds
          * System.out.println(problem009()); //19 milliseconds
          * System.out.println(problem010()); //4.15 minutes
+         * System.out.println(problem011()); //3 milliseconds
          * */
-        System.out.println(problem011());
+        System.out.println(problem012());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
