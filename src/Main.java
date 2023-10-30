@@ -168,7 +168,7 @@ public class Main {
     }
 
     public static int problem011() {
-        ArrayList<String> input = new ArrayList<String>(Arrays.asList(
+        ArrayList<String> input = new ArrayList<>(Arrays.asList(
                 "08", "02", "22", "97", "38", "15", "00", "40", "00", "75", "04", "05", "07", "78", "52", "12", "50", "77", "91", "08",
                 "49", "49", "99", "40", "17", "81", "18", "57", "60", "87", "17", "40", "98", "43", "69", "48", "04", "56", "62", "00",
                 "81", "49", "31", "73", "55", "79", "14", "29", "93", "71", "40", "67", "53", "88", "30", "03", "49", "13", "36", "65",
@@ -190,7 +190,8 @@ public class Main {
                 "20", "73", "35", "29", "78", "31", "90", "01", "74", "31", "49", "71", "48", "86", "81", "16", "23", "57", "05", "54",
                 "01", "70", "54", "71", "83", "51", "54", "69", "16", "92", "33", "48", "61", "43", "52", "01", "89", "19", "67", "48"));
         ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
-        int count=0;
+        int count = 0;
+        int maxValue = 0;
         for (int i = 0; i < 20; i++) {
             ArrayList<Integer> temp = new ArrayList<>();
             for (int j = 0; j < 20; j++) {
@@ -199,8 +200,51 @@ public class Main {
             }
             matrix.add(temp);
         }
-        System.out.println(matrix);
-        return 0;
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20 - 3; j++) {
+                int a = matrix.get(i).get(j);
+                int b = matrix.get(i).get(j + 1);
+                int c = matrix.get(i).get(j + 2);
+                int d = matrix.get(i).get(j + 3);
+                if (a * b * c * d > maxValue) {
+                    maxValue = a * b * c * d;
+                }
+            }
+        }
+        for (int i = 0; i < 20 - 3; i++) {
+            for (int j = 0; j < 20; j++) {
+                int a = matrix.get(i).get(j);
+                int b = matrix.get(i + 1).get(j);
+                int c = matrix.get(i + 2).get(j);
+                int d = matrix.get(i + 3).get(j);
+                if (a * b * c * d > maxValue) {
+                    maxValue = a * b * c * d;
+                }
+            }
+        }
+        for (int i = 0; i < 20 - 3; i++) {
+            for (int j = 0; j < 20 -3; j++) {
+                int a = matrix.get(i).get(j);
+                int b = matrix.get(i + 1).get(j+1);
+                int c = matrix.get(i + 2).get(j+2);
+                int d = matrix.get(i + 3).get(j+3);
+                if (a * b * c * d > maxValue) {
+                    maxValue = a * b * c * d;
+                }
+            }
+        }
+        for (int i = 0; i < 20 - 3; i++) {
+            for (int j = 3; j < 20; j++) {
+                int a = matrix.get(i).get(j);
+                int b = matrix.get(i + 1).get(j-1);
+                int c = matrix.get(i + 2).get(j-2);
+                int d = matrix.get(i + 3).get(j-3);
+                if (a * b * c * d > maxValue) {
+                    maxValue = a * b * c * d;
+                }
+            }
+        }
+        return maxValue;
     }
 
 
@@ -221,7 +265,7 @@ public class Main {
          * System.out.println(problem009()); //19 milliseconds
          * System.out.println(problem010()); //4.15 minutes
          * */
-        problem011();
+        System.out.println(problem011());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
