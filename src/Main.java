@@ -407,6 +407,25 @@ public class Main {
         return returnNumber;
     }
 
+    public static long problem015() {
+        int size = 21;
+        long[][] pts = new long[size][size];
+        pts[0][0] = 1;
+        for (int i = 1; i < size; i++) {
+            pts[i][0] = 1;
+            pts[0][i] = 1;
+        }
+        for (int r = 1; r < size; r++) {
+            pts[r][r] = pts[r - 1][r] + pts[r][r - 1];
+
+            for (int c = r + 1; c < size; c++) {
+                pts[r][c] = pts[r - 1][c] + pts[r][c - 1];
+                pts[c][r] = pts[c - 1][r] + pts[c][r - 1];
+            }
+        }
+        return pts[size - 1][size - 1];
+    }
+
 
 
     public static void main(String[] args) {
@@ -426,8 +445,9 @@ public class Main {
          * System.out.println(problem011()); //3 milliseconds
          * System.out.println(problem012()); //4.6 seconds
          * System.out.println(problem013()); //5 milliseconds
+         * System.out.println(problem014()); //10.3 seconds
          * */
-        System.out.println(problem014());
+        System.out.println(problem015());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
