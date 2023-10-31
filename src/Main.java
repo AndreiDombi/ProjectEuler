@@ -435,6 +435,45 @@ public class Main {
         return sum;
     }
 
+    private static final String[] ONES = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    private static final String[] TEENS = {"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
+    private static final String[] TENS = {"twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+    private static String toEnglish(int n) {
+        if (n < 0 || n > 99999)
+            throw new IllegalArgumentException();
+        if (n < 100) {
+            return tens(n);
+        } else {
+            String big = "";
+            if (n >= 1000) {
+                big += tens(n / 1000) + "thousand";
+            }
+            if (n / 100 % 10 != 0) {
+                big += ONES[n / 100 % 10] + "hundred";
+            }
+            return big + (n % 100 != 0 ? "and" + tens(n % 100) : "");
+        }
+    }
+    private static String tens(int n) {
+        if (n < 10) {
+            return ONES[n];
+        } else if (n < 20) {
+            return TEENS[n - 10];
+        } else {
+            return TENS[n / 10 - 2] + (n % 10 != 0 ? ONES[n % 10] : "");
+        }
+    }
+
+    public static int problem017() {
+        int sum = 0;
+        for (int i = 1; i <= 1000; i++) {
+            sum += toEnglish(i).length();
+        }
+        return sum;
+    }
+
+
+
 
 
 
@@ -457,8 +496,9 @@ public class Main {
          * System.out.println(problem013()); //5 milliseconds
          * System.out.println(problem014()); //10.3 seconds
          * System.out.println(problem015()); //1 millisecond
+         * System.out.println(problem016()); //2 milliseconds
          * */
-        System.out.println(problem016());
+        System.out.println(problem017());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
