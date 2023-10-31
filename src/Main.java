@@ -380,6 +380,35 @@ public class Main {
         return sum;
     }
 
+    public static int lengthCollatzSequence(BigInteger number) {
+        int count = 0;
+        while (true) {
+            if (number.mod(BigInteger.TWO).compareTo(BigInteger.ZERO) == 0) {
+                number = number.divide(BigInteger.TWO);
+                count++;
+            } else {
+                number = number.multiply(BigInteger.valueOf(3)).add(BigInteger.ONE);
+                count++;
+            }
+            if (number.compareTo(BigInteger.ONE) == 0)
+                return count;
+        }
+    }
+
+    public static int problem014() {
+        int longestChain = 0, returnNumber = 0;
+        for (int i = 2; i < 1000000; i++) {
+            int length = lengthCollatzSequence(new BigInteger(String.valueOf(i)));
+            if (length > longestChain) {
+                longestChain = length;
+                returnNumber = i;
+            }
+        }
+        return returnNumber;
+    }
+
+
+
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
         /**
@@ -396,8 +425,9 @@ public class Main {
          * System.out.println(problem010()); //4.15 minutes
          * System.out.println(problem011()); //3 milliseconds
          * System.out.println(problem012()); //4.6 seconds
+         * System.out.println(problem013()); //5 milliseconds
          * */
-        System.out.println(problem013());
+        System.out.println(problem014());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
