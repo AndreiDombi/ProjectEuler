@@ -426,6 +426,16 @@ public class Main {
         return pts[size - 1][size - 1];
     }
 
+    public static int problem016() {
+        String number = BigInteger.TWO.pow(1000).toString();
+        int sum = 0;
+        for (int i = 0; i < number.length(); i++) {
+            sum += Integer.parseInt(String.valueOf(number.charAt(i)));
+        }
+        return sum;
+    }
+
+
 
 
     public static void main(String[] args) {
@@ -446,8 +456,9 @@ public class Main {
          * System.out.println(problem012()); //4.6 seconds
          * System.out.println(problem013()); //5 milliseconds
          * System.out.println(problem014()); //10.3 seconds
+         * System.out.println(problem015()); //1 millisecond
          * */
-        System.out.println(problem015());
+        System.out.println(problem016());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
