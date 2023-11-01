@@ -507,6 +507,40 @@ public class Main {
         return Math.max(triangle.get(0).get(0) + triangle.get(1).get(0), triangle.get(0).get(0) + triangle.get(1).get(1));
     }
 
+    public static boolean isLeapYear(int year) {
+        if (year % 4 == 0) {
+            if (year % 100 == 0) {
+                return year % 400 == 0;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static int problem019() {
+        int dayOfWeek = 1;  // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
+        int sundaysOnFirstOfMonth = 0;
+
+        for (int year = 1900; year <= 2000; year++) {
+            for (int month = 1; month <= 12; month++) {
+                if (dayOfWeek == 0) {
+                    sundaysOnFirstOfMonth++;
+                }
+
+                int daysInMonth;
+                if (month == 4 || month == 6 || month == 9 || month == 11) {
+                    daysInMonth = 30;
+                } else if (month == 2) {
+                    daysInMonth = isLeapYear(year) ? 29 : 28;
+                } else {
+                    daysInMonth = 31;
+                }
+                dayOfWeek = (dayOfWeek + daysInMonth) % 7;
+            }
+        }
+        return sundaysOnFirstOfMonth;
+    }
+
 
 
     public static void main(String[] args) {
@@ -530,8 +564,9 @@ public class Main {
          * System.out.println(problem015()); //1 millisecond
          * System.out.println(problem016()); //2 milliseconds
          * System.out.println(problem017()); //33 milliseconds
+         * System.out.println(problem018()); //4 milliseconds
          * */
-        System.out.println(problem018());
+        System.out.println(problem019());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
