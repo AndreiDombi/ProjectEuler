@@ -1,6 +1,9 @@
+import java.awt.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static int problem001(int range, int multiply1, int multiply2) {
@@ -137,7 +140,7 @@ public class Main {
             for (int j = i; j < i + 13; j++) {
                 product = product.multiply(BigInteger.valueOf(Integer.parseInt(String.valueOf(bigNumber.charAt(j)))));
             }
-            if (product.compareTo(biggestProduct)>0) {
+            if (product.compareTo(biggestProduct) > 0) {
                 biggestProduct = product;
             }
         }
@@ -223,11 +226,11 @@ public class Main {
             }
         }
         for (int i = 0; i < 20 - 3; i++) {
-            for (int j = 0; j < 20 -3; j++) {
+            for (int j = 0; j < 20 - 3; j++) {
                 int a = matrix.get(i).get(j);
-                int b = matrix.get(i + 1).get(j+1);
-                int c = matrix.get(i + 2).get(j+2);
-                int d = matrix.get(i + 3).get(j+3);
+                int b = matrix.get(i + 1).get(j + 1);
+                int c = matrix.get(i + 2).get(j + 2);
+                int d = matrix.get(i + 3).get(j + 3);
                 if (a * b * c * d > maxValue) {
                     maxValue = a * b * c * d;
                 }
@@ -236,9 +239,9 @@ public class Main {
         for (int i = 0; i < 20 - 3; i++) {
             for (int j = 3; j < 20; j++) {
                 int a = matrix.get(i).get(j);
-                int b = matrix.get(i + 1).get(j-1);
-                int c = matrix.get(i + 2).get(j-2);
-                int d = matrix.get(i + 3).get(j-3);
+                int b = matrix.get(i + 1).get(j - 1);
+                int c = matrix.get(i + 2).get(j - 2);
+                int d = matrix.get(i + 3).get(j - 3);
                 if (a * b * c * d > maxValue) {
                     maxValue = a * b * c * d;
                 }
@@ -385,11 +388,10 @@ public class Main {
         while (true) {
             if (number.mod(BigInteger.TWO).compareTo(BigInteger.ZERO) == 0) {
                 number = number.divide(BigInteger.TWO);
-                count++;
             } else {
                 number = number.multiply(BigInteger.valueOf(3)).add(BigInteger.ONE);
-                count++;
             }
+            count++;
             if (number.compareTo(BigInteger.ONE) == 0)
                 return count;
         }
@@ -438,6 +440,7 @@ public class Main {
     private static final String[] ONES = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
     private static final String[] TEENS = {"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
     private static final String[] TENS = {"twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+
     private static String toEnglish(int n) {
         if (n < 0 || n > 99999)
             throw new IllegalArgumentException();
@@ -454,6 +457,7 @@ public class Main {
             return big + (n % 100 != 0 ? "and" + tens(n % 100) : "");
         }
     }
+
     private static String tens(int n) {
         if (n < 10) {
             return ONES[n];
@@ -472,8 +476,36 @@ public class Main {
         return sum;
     }
 
-
-
+    public static int problem018() {
+        ArrayList<String> triangleString = new ArrayList<>(Arrays.asList(
+                "75",
+                "95 64",
+                "17 47 82",
+                "18 35 87 10",
+                "20 04 82 47 65",
+                "19 01 23 75 03 34",
+                "88 02 77 73 07 63 67",
+                "99 65 04 28 06 16 70 92",
+                "41 41 26 56 83 40 80 70 33",
+                "41 48 72 33 47 32 37 16 94 29",
+                "53 71 44 65 25 43 91 52 97 51 14",
+                "70 11 33 28 77 73 17 78 39 68 17 57",
+                "91 71 52 38 17 14 91 43 58 50 27 29 48",
+                "63 66 04 68 89 53 67 30 73 16 69 87 40 31",
+                "04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"));
+        ArrayList<ArrayList<Integer>> triangle = new ArrayList<>();
+        for (String line : triangleString) {
+            triangle.add((ArrayList<Integer>)
+                    Arrays.stream(line.split(" ")).map(Integer::parseInt).collect(Collectors.toList()));
+        }
+        for (int i = triangle.size() - 2; i > 0; i--) {
+            for (int j = 0; j < triangle.get(i).size(); j++) {
+                triangle.get(i).set(j, triangle.get(i).get(j) +
+                        Math.max(triangle.get(i + 1).get(j), triangle.get(i + 1).get(j + 1)));
+            }
+        }
+        return Math.max(triangle.get(0).get(0) + triangle.get(1).get(0), triangle.get(0).get(0) + triangle.get(1).get(1));
+    }
 
 
 
@@ -497,8 +529,9 @@ public class Main {
          * System.out.println(problem014()); //10.3 seconds
          * System.out.println(problem015()); //1 millisecond
          * System.out.println(problem016()); //2 milliseconds
+         * System.out.println(problem017()); //33 milliseconds
          * */
-        System.out.println(problem017());
+        System.out.println(problem018());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
