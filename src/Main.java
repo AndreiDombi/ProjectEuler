@@ -1,8 +1,6 @@
-import java.awt.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -541,7 +539,19 @@ public class Main {
         return sundaysOnFirstOfMonth;
     }
 
-
+    public static int problem020()
+    {
+        BigInteger hundredFactorial = BigInteger.ONE;
+        int sum=0;
+        for(int i=1;i<=100;i++) {
+            hundredFactorial = hundredFactorial.multiply(BigInteger.valueOf(i));
+        }
+        String number = hundredFactorial.toString();
+        for(int i=0;i<number.length();i++) {
+            sum += Integer.parseInt(String.valueOf(number.charAt(i)));
+        }
+        return sum;
+    }
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
@@ -565,8 +575,9 @@ public class Main {
          * System.out.println(problem016()); //2 milliseconds
          * System.out.println(problem017()); //33 milliseconds
          * System.out.println(problem018()); //4 milliseconds
+         * System.out.println(problem019()); //1 millisecond
          * */
-        System.out.println(problem019());
+        System.out.println(problem020());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
