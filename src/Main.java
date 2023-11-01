@@ -539,19 +539,43 @@ public class Main {
         return sundaysOnFirstOfMonth;
     }
 
-    public static int problem020()
-    {
+    public static int problem020() {
         BigInteger hundredFactorial = BigInteger.ONE;
-        int sum=0;
-        for(int i=1;i<=100;i++) {
+        int sum = 0;
+        for (int i = 1; i <= 100; i++) {
             hundredFactorial = hundredFactorial.multiply(BigInteger.valueOf(i));
         }
         String number = hundredFactorial.toString();
-        for(int i=0;i<number.length();i++) {
+        for (int i = 0; i < number.length(); i++) {
             sum += Integer.parseInt(String.valueOf(number.charAt(i)));
         }
         return sum;
     }
+
+    public static int sumDivisorsOfNaturalNumber(int x) {
+        int sum = 0;
+        for (int i = 1; i <= x / 2; i++) {
+            if (x % i == 0)
+                sum += i;
+        }
+        return sum;
+    }
+
+    public static boolean amicableNumbers(int x1,int x2) {
+        return sumDivisorsOfNaturalNumber(x2) == x1 && sumDivisorsOfNaturalNumber(x1) == x2;
+    }
+
+    public static int problem021() {
+        int sum = 0;
+        for (int i = 1; i < 10000; i++) {
+            int temp = sumDivisorsOfNaturalNumber(i);
+            if (amicableNumbers(i, temp) && temp < 10000 && i < temp) {
+                sum = sum + i + temp;
+            }
+        }
+        return sum;
+    }
+
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
@@ -576,8 +600,9 @@ public class Main {
          * System.out.println(problem017()); //33 milliseconds
          * System.out.println(problem018()); //4 milliseconds
          * System.out.println(problem019()); //1 millisecond
+         * System.out.println(problem020()); //2 milliseconds
          * */
-        System.out.println(problem020());
+        System.out.println(problem021());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
