@@ -576,6 +576,8 @@ public class Main {
         return sum;
     }
 
+    
+
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
@@ -601,8 +603,9 @@ public class Main {
          * System.out.println(problem018()); //4 milliseconds
          * System.out.println(problem019()); //1 millisecond
          * System.out.println(problem020()); //2 milliseconds
+         * System.out.println(problem021()); //15 milliseconds
          * */
-        System.out.println(problem021());
+
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
