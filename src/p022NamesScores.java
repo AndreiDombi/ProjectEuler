@@ -55,7 +55,7 @@ public class p022NamesScores {
         for (int i = 0; i < names.size(); i++) {
             BigInteger tempNameValue = BigInteger.ZERO;
             tempNameValue = tempNameValue.add(BigInteger.valueOf(getNameValue(names.get(i)))).
-                    multiply(BigInteger.valueOf(i+1));
+                    multiply(BigInteger.valueOf(i + 1));
             sum = sum.add(tempNameValue);
         }
         return sum;
@@ -64,7 +64,7 @@ public class p022NamesScores {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
 
-        System.out.println(getSumNamesValue());
+        System.out.println(getSumNamesValue()); // 125 milliseconds
 
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
