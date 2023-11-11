@@ -4,13 +4,13 @@ import java.util.ArrayList;
 public class p034DigitFactorials {
     static ArrayList<Integer> curiosNumbers = new ArrayList<>();
 
-    public static BigInteger factorial(int n)
-    {
+    public static BigInteger factorial(int n) {
         BigInteger f = new BigInteger("1");
         for (int i = n; i > 0; i--)
             f = f.multiply(BigInteger.valueOf(i));
         return f;
     }
+
     public static boolean checkIfCuriosNumber(int n) {
         BigInteger sumOfFactorials = BigInteger.ZERO;
         int temp = n;
@@ -29,8 +29,7 @@ public class p034DigitFactorials {
         }
     }
 
-    public static int getSumOfList()
-    {
+    public static int getSumOfList() {
         return curiosNumbers.stream().mapToInt(Integer::intValue).sum();
     }
 
@@ -44,5 +43,4 @@ public class p034DigitFactorials {
         long timeElapsed = finish - start;
         System.out.println(timeElapsed);
     }
-
 }
